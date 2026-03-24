@@ -1,7 +1,7 @@
 from django.db import models
 from .base import BaseModel
 from .person import Person
-
+from django.utils import timezone
 
 class Checkin(BaseModel):
     class Meta:
@@ -80,3 +80,10 @@ class PatientCompanionCheckin(BaseModel):
                                   verbose_name="Acompanhante",
                                   related_name='companion_checkin',
                                   on_delete=models.PROTECT)
+
+    notificado = models.BooleanField(default=False,
+                                     verbose_name="Notificado check-out pendente")
+    expected_checkout_date = models.DateTimeField(
+        verbose_name="Data prevista de check-out",
+        default=timezone.now
+        )
